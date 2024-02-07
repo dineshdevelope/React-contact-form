@@ -10,7 +10,12 @@ const Navbar = () => {
           <div>
             <ul className="flex  justify-end space-x-10 font-semibold ">
               <li className="bg-white p-2 rounded hover:bg-gray-800 hover:text-white">
-                <a href="">GitHub</a>
+                <a
+                  href="https://github.com/dineshdevelope/React-contact-form"
+                  target="blank"
+                >
+                  GitHub
+                </a>
               </li>
             </ul>
           </div>
