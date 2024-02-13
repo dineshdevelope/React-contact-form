@@ -4,8 +4,9 @@ const Forminput = ({
   name,
   label,
   placeholder,
-  value,
-  handleOnchange,
+  type = "text",
+  register,
+  error,
   required,
 }) => {
   return (
@@ -18,13 +19,12 @@ const Forminput = ({
         <input
           id={name}
           name={name}
-          type="text"
+          type={type}
           placeholder={placeholder}
           className="px-4 py-2 rounded bg-gray-300 w-full"
-          onChange={handleOnchange}
-          value={value}
-          required={required}
+          {...register}
         />
+        {error && <small className="text-red-500">{error.message}</small>}
       </div>
     </div>
   );

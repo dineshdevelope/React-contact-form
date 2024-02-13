@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Forminput from "./Forminput";
+import FormTextArea from "./FormtextArea";
 
 const contactPage = () => {
   const {
@@ -7,7 +9,7 @@ const contactPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(register);
+  //console.log(register);
   const sendInfo = (data) => {
     console.log(data);
   };
@@ -16,7 +18,50 @@ const contactPage = () => {
       <div className="bg-white p-10 rounded mb-2">
         <h4 className="font-semibold text-xl text-center">Contact Form</h4>
         <form className="my-5 space-y-4" onSubmit={handleSubmit(sendInfo)}>
-          <input
+          <Forminput
+            name="fullName"
+            label="Full Name"
+            placeholder="Enter your Full Name!"
+            required
+            register={register("fullName", {
+              required: "This field is required",
+            })}
+            error={errors.fullName}
+          />
+          <Forminput
+            name="email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter your Email Address!"
+            required
+            register={register("email", {
+              required: "This field is required",
+            })}
+            error={errors.email}
+          />
+          <Forminput
+            name="subject"
+            label="Subject"
+            placeholder="Enter your Subject title!"
+            required
+            register={register("subject", {
+              required: "This field is required",
+            })}
+            error={errors.subject}
+          />
+
+          <FormTextArea
+            name="desc"
+            label="Description"
+            placeholder="Write your description briefly!"
+            required
+            register={register("desc", {
+              required: "This field is required",
+            })}
+            error={errors.desc}
+          />
+
+          {/* <input
             type="text"
             name="fullName"
             className=" px-4 py-2 bg-gray-200 outline-none rounded w-full block"
@@ -49,7 +94,7 @@ const contactPage = () => {
             className="px-4 py-2 bg-gray-200 outline-none rounded w-full
             "
             {...register("description")}
-          ></textarea>
+          ></textarea> */}
           <button className="px-4 py-2 rounded bg-yellow-500">Submit</button>
         </form>
       </div>
