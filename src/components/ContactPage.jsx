@@ -1,65 +1,60 @@
-import Forminput from "./Forminput";
-import FormBotton from "./FormBotton";
-import FormtextArea from "./FormtextArea";
-import { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-const ContactPage = () => {
-  const [form, setForm] = useState({ fullName: "", Email: "", desc: "" });
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setForm((form) => ({
-      ...form,
-      [name]: value,
-    }));
-  };
-
-  const submitForm = (e) => {
-    e.preventDefault();
-    console.log(form);
-    alert(`Your Form sucessfully submited...! ${form.fullName}`);
-    setForm({ fullName: "", Email: "", desc: "" });
+const contactPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  console.log(register);
+  const sendInfo = (data) => {
+    console.log(data);
   };
   return (
     <div className="m-10 max-w-xl mx-auto">
       <div className="bg-white p-10 rounded mb-2">
         <h4 className="font-semibold text-xl text-center">Contact Form</h4>
-      </div>
-
-      <form action="" onSubmit={submitForm}>
-        <div>
-          <Forminput
+        <form className="my-5 space-y-4" onSubmit={handleSubmit(sendInfo)}>
+          <input
+            type="text"
             name="fullName"
-            label="FullName"
-            placeholder="Enter your Full Name"
-            value={form.fullName}
-            handleOnchange={handleInput}
-            required
+            className=" px-4 py-2 bg-gray-200 outline-none rounded w-full block"
+            placeholder="Full Name"
+            {...register("fullName", {
+              required: "Dei, intha field romba mukiyam Da ! ",
+              minLength: {
+                value: 3,
+                message: "This Field Should have atleast 3 characters",
+              },
+              maxLength: {
+                value: 20,
+                message: "This Field Should not allow more then 20 characters",
+              },
+            })}
           />
-          <Forminput
-            name="Email"
-            label="Email"
-            placeholder="Enter your Email"
-            value={form.Email}
-            handleOnchange={handleInput}
-            required
+          {errors.fullName && (
+            <small className="text-red-500">{errors.fullName.message}</small>
+          )}
+          <input
+            type="text"
+            name="subject"
+            className="px-4 py-2 bg-gray-200 outline-none rounded w-full"
+            placeholder="Subject"
+            {...register("subject")}
           />
-          <FormtextArea
-            name="desc"
-            label="Share your feedback..!"
-            placeholder="share you feedback briefly"
-            value={form.desc}
-            handleOnchange={handleInput}
-            required
-          />
-
-          <div className="text-center mt-5">
-            <FormBotton text="Submit" />
-          </div>
-        </div>
-      </form>
+          <textarea
+            name="description"
+            placeholder="Enter your description briefly!"
+            className="px-4 py-2 bg-gray-200 outline-none rounded w-full
+            "
+            {...register("description")}
+          ></textarea>
+          <button className="px-4 py-2 rounded bg-yellow-500">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default ContactPage;
+export default contactPage;
