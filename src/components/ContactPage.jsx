@@ -24,6 +24,7 @@ const contactPage = () => {
   //console.log(register);
   const sendInfo = (data) => {
     console.log(data);
+    alert(`Your Form sucessfully submited...! ${data.fullName}`);
   };
   return (
     <div className="m-10 max-w-xl mx-auto">
